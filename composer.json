@@ -1,0 +1,34 @@
+{
+    "name": "iamfredric/incognito",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fredric Lovefors",
+            "email": "fredric@panang.se"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "Incognito\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:iamfredric/modest.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:iamfredric/instantiator.git"
+        }
+    ],
+    "require": {
+        "iamfredric/modest": "*",
+        "iamfredric/instantiator": "*",
+        "duncan3dc/blade": "dev-master"
+    }
+}
