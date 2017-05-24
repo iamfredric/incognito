@@ -11,14 +11,8 @@ class ViewServiceProvider implements ServiceProvider
         return new ViewServiceContainer(
             config('app.views-path'),
             config('app.views-cache-path'),
-            [
-                'pages.home' => 'HomeComposer@hej'
-            ],
-            [
-                'apa' => function ($value) {
-                    return 'Monkey';
-                }
-            ]
+            config('app.views.composers', []),
+            config('app.views.directives', [])
         );
     }
 }

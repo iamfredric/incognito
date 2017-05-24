@@ -27,16 +27,21 @@ class ViewServiceContainer
 
         $this->addViewComposers();
         $this->addDirectives();
-        // Composers
-        // $view->composer('', '');
-        // Directives
-        // $view->directive('', '');
     }
 
     public function addDirectives()
     {
-        foreach ($this->directives as $name => $handler) {
-            $this->blade->directive($name, $handler);
+        foreach ($this->directives as $name => $directive) {
+            $this->blade->directive($name, );
+
+            $this->blade->directive($name, function ($expression) use ($directive) {
+                $parts = explode('@', $directive);
+                $classname = 'App\\Http\\Directives\\' . $parts[0];
+
+                $response = (new Instantiator($classname))->call();
+
+                return $response->{$parts[1]}($view);
+            });
         }
     }
 
