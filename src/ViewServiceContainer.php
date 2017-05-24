@@ -32,8 +32,6 @@ class ViewServiceContainer
     public function addDirectives()
     {
         foreach ($this->directives as $name => $directive) {
-            $this->blade->directive($name, );
-
             $this->blade->directive($name, function ($expression) use ($directive) {
                 $parts = explode('@', $directive);
                 $classname = 'App\\Http\\Directives\\' . $parts[0];
