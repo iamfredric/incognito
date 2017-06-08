@@ -16,6 +16,11 @@
             "Incognito\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "repositories": [
         {
             "type": "vcs",
@@ -27,8 +32,11 @@
         }
     ],
     "require": {
-        "iamfredric/modest": "*",
-        "iamfredric/instantiator": "*",
-        "duncan3dc/blade": "dev-master"
+        "iamfredric/modest": "0.1.0",
+        "iamfredric/instantiator": "0.1.0",
+        "duncan3dc/blade": "^3.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.2"
     }
 }

@@ -37,7 +37,7 @@ function view($view = null, $data = [])
  */
 function base_url($uri = '')
 {
-    return get_site_url().'/'.$uri;
+    return rtrim(get_site_url(), '/') . '/'. trim($uri, '/');
 }
 
 /**
@@ -49,7 +49,7 @@ function base_url($uri = '')
  */
 function theme_url($url = '')
 {
-    return get_bloginfo('stylesheet_directory') . '/' . $url;
+    return rtrim(get_bloginfo('stylesheet_directory'), '/') . '/' . trim($url, '/');
 }
 
 /**
@@ -61,7 +61,7 @@ function theme_url($url = '')
  */
 function theme_path($path = '')
 {
-    return get_stylesheet_directory() . '/' . $path;
+    return rtrim(get_stylesheet_directory(), '/') . '/' . trim($path, '/');
 }
 
 /**
@@ -75,14 +75,12 @@ function uploads_path($path = '')
 {
     $directory = wp_upload_dir();
 
-    return $directory['basedir'] . '/' . $path;
+    return rtrim($directory['basedir'], '/') . '/' . trim($path, '/');
 }
 
 function uploads_url($path = '')
 {
     $directory = wp_upload_dir();
 
-    return $directory['baseurl'] . '/' . $path;
+    return rtrim($directory['baseurl'], '/') . '/' . trim($path, '/');
 }
-
-

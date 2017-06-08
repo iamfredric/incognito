@@ -8,6 +8,13 @@ class Router
 
 	protected $templates = [];
 
+	protected $namespace;
+
+    public function __construct($namespace = null)
+    {
+        $this->namespace = $namespace;
+    }
+
 	public function make($routesFile)
 	{
 		$route = $this;
@@ -39,17 +46,30 @@ class Router
 
 	public function register($name, $endpoint)
 	{
-		$this->routes[$name] = new Route($name, $endpoint);
+		$this->routes[$name] = new Route($name, $endpoint, $this->namespace);
 	}
 
     public function template($key, $name, $endpoint)
     {
-        $this->templates[$key] = new Route($name, $endpoint);
+        $this->templates[$key] = new Route($name, $endpoint, $this->namespace);
 	}
 
     protected function routeIsDefined($route)
     {
         return isset($this->routes[$route]) or isset($this->templates[$route]);
+	}
+
+    public function resolve($route)
+    {
+        if (isset($this->routes[$route])) {
+            return $this->routes[$route]->resolve();
+        }
+
+        if (isset($this->templates[$route])) {
+            return $this->templates[$route]->resolve();
+        }
+
+        return null;
 	}
 
     protected function routeResponse($route)
