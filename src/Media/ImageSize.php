@@ -1,8 +1,8 @@
 <?php
 
-namespace Incognito\Containers;
+namespace Incognito\Media;
 
-class ImageRegistrar
+class ImageSize
 {
     /**
      * @var string
@@ -84,5 +84,14 @@ class ImageRegistrar
         $this->crop = false;
 
         return $this;
+    }
+
+    /**
+     * Registers the image
+     */
+    public function register()
+    {
+        add_image_size($this->name, $this->width, $this->height, $this->crop);
+        add_image_size($this->name . '@2x', $this->width*2, $this->height*2, $this->crop);
     }
 }

@@ -27,6 +27,18 @@ function get_the_ID() {
     return 1;
 }
 
+function add_image_size($size, $width, $height, $crop) {
+    echo "{$size}-{$width}-{$height}-{$crop}";
+}
+
+function add_action($key, $callable) {
+    echo "action:{$key}";
+    $callable();
+}
+
+function add_theme_support($key) {
+    echo "theme_support";
+}
 
 function add_filter($key, $callback) {
     if ($key == 'template_include') {
@@ -54,5 +66,13 @@ class TestController
     public function show()
     {
         return 'Route is shown';
+    }
+}
+
+class TestComposer
+{
+    public function test($view)
+    {
+        return 'It is composed';
     }
 }

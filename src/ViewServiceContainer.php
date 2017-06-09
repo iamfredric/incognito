@@ -16,17 +16,31 @@ class ViewServiceContainer
      */
     private $composers = [];
 
-    public function __construct($viewsDirectory, $cacheDirecyory, $composers = [], $directives = [])
+    public function __construct($viewsDirectory, $cacheDirecyory)
     {
         $this->blade = new BladeInstance(
             $viewsDirectory, $cacheDirecyory
         );
 
-        $this->directives = $directives;
-        $this->composers = $composers;
+//        $this->directives = $directives;
+//        $this->composers = $composers;
 
-        $this->addViewComposers();
-        $this->addDirectives();
+//        $this->addViewComposers();
+//        $this->addDirectives();
+    }
+
+    public function viewComposer($key, $callable, $namespace)
+    {
+        $this->blade->directive($key, function ($view) use ($callable) {
+            // $composer = new ViewComposer($callable, $namespace);
+            // return $composer->compose($view);
+//            $parts = explode('@', $composer);
+//            $classname = 'App\\Http\\Composers\\' . $parts[0];
+//
+//            $response = (new Instantiator($classname))->call();
+//
+//            return $response->{$parts[1]}($view);
+        });
     }
 
     public function addDirectives()
