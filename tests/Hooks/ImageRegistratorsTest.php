@@ -20,7 +20,6 @@ class ImageRegistratorsTest extends TestCase
         $this->expectOutputString('action:inittheme_supporttestimage-200-400-1testimage@2x-400-800-1');
 
         unlink($testfilepath);
-
     }
 
     /** @test */

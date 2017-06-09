@@ -36,6 +36,18 @@ function add_action($key, $callable) {
     $callable();
 }
 
+function register_nav_menu($slug, $label) {
+    echo "{$slug}:{$label}";
+}
+
+function __($label, $domain) {
+    return "{$label}:$domain";
+}
+
+function wp_nav_menu($args) {
+    echo json_encode($args);
+}
+
 function add_theme_support($key) {
     echo "theme_support";
 }
