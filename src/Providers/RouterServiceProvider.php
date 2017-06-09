@@ -8,6 +8,9 @@ class RouterServiceProvider implements ServiceProvider
 {
     public function register()
     {
-        return new Router();
+        return new Router(
+            config('app.config_files.routes'),
+            config('app.namespaces.controllers')
+        );
     }
 }

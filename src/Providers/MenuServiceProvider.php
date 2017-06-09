@@ -2,12 +2,15 @@
 
 namespace Incognito\Providers;
 
-use Incognito\Containers\MenuServiceContainer;
+use Incognito\Menus\MenuRegistrator;
 
 class MenuServiceProvider implements ServiceProvider
 {
     public function register()
     {
-        return new MenuServiceContainer();
+        return new MenuRegistrator(
+            config('app.config_files.menus'),
+            config('app.theme-slug')
+        );
     }
 }

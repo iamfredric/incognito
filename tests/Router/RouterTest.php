@@ -23,9 +23,7 @@ class RouterTest extends TestCase
         $routesFile = get_stylesheet_directory() . 'routes.php';
         file_put_contents($routesFile, '<?php $route->template("fileroutertest", "Me template", "TestController@show"); $route->register("testroute", "TestController@index");');
 
-        $router = new Router();
-
-        $router->make($routesFile);
+        $router = new Router($routesFile);
 
         $this->assertEquals('Route is shown', $router->resolve('fileroutertest'));
         $this->assertEquals('Route is resolved', $router->resolve('testroute'));
