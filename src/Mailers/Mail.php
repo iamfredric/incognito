@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Mailers;
+namespace Incognito\Mailers;
 
 use duncan3dc\Laravel\BladeInstance;
 

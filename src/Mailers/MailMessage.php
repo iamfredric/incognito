@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Mailers;
+namespace Incognito\Mailers;
 
 class MailMessage
 {
