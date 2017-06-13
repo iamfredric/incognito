@@ -94,3 +94,11 @@ class TestComposer
         return 'It is composed';
     }
 }
+
+
+class TestRequest extends \Incognito\Requests\Request
+{
+    protected $rules = [
+        'test' => 'required'
+    ];
+}
