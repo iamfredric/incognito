@@ -60,7 +60,8 @@ class ApiRoute
         $registrationWasSuccessfull = register_rest_route($this->apiNamespace, $this->uri, [
             'methods' => $this->method,
             'callback' => function ($data) {
-                $class = new Instantiator($this->extractClassName($this->endpoint, $this->namespace));
+                $class = (new Instantiator($this->extractClassName($this->endpoint, $this->namespace)))
+                    ->call();
 
                 return $class->{$this->extractMethodName($this->endpoint)}($data);
             }
