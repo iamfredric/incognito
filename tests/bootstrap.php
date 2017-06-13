@@ -52,6 +52,12 @@ function add_theme_support($key) {
     echo "theme_support";
 }
 
+function register_rest_route($namespace, $uri, $args) {
+    echo "namespace={$namespace}:url={$uri}";
+
+    return true;
+}
+
 function add_filter($key, $callback) {
     if ($key == 'template_include') {
         return $callback('name');
