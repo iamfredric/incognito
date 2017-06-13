@@ -62,7 +62,7 @@ class ApiRoute
             'callback' => function ($data) {
                 $class = new Instantiator($this->extractClassName($this->endpoint, $this->namespace));
 
-                return $class->{$this->extractMethodName()}($data);
+                return $class->{$this->extractMethodName($this->endpoint)}($data);
             }
         ]);
 
