@@ -26,6 +26,14 @@ class ImageRegistrator
     }
 
     /**
+     *
+     */
+    public function support()
+    {
+        $this->types = func_get_args();
+    }
+
+    /**
      * @param $name
      * @param null $width
      * @param null $height
