@@ -21,7 +21,7 @@ class PostTypeContainer
 
     public function taxonomy()
     {
-        return new TaxonomyRegistrar;
+        return new TaxonomyRegistrar();
     }
 
     protected function getRoutes($routesFile)
