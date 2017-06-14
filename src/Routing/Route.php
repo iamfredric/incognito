@@ -35,12 +35,24 @@ class Route
      * @param null $namespace
      */
     public function __construct($name, $endpoint, $namespace = null)
-	{
-	    $this->namespace = $namespace;
+    {
+        $this->namespace = $namespace;
 
-		add_filter("{$name}_template", function ($template) use ($name, $endpoint) {
-			return $name;
-		});
+        $names = explode(':', $name);
+        $hook = $names[0];
+        $type = isset($names[1]) ? $names[1] : null;
+
+        add_filter("{$hook}_template", function ($template) use ($name, $endpoint, $type) {
+            if ($type) {
+                if ($type == get_query_var('post_type')) {
+                    return $name;
+                }
+
+                return $template;
+            }
+
+            return $name;
+        });
 
         $this->name = $name;
         $this->endpoint = $endpoint;
