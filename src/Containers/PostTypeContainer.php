@@ -6,7 +6,7 @@ class PostTypeContainer
 {
     protected $types = [];
 
-    public function make($routesFile)
+    public function __construct($routesFile)
     {
         $this->getRoutes($routesFile)
             ->registerPosttypes();

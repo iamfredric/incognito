@@ -8,6 +8,8 @@ class PostTypeServiceProvider implements ServiceProvider
 {
     public function register()
     {
-        return new PostTypeContainer;
+        return new PostTypeContainer(
+            config('app.config_files.posttypes')
+        );
     }
 }

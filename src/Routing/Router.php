@@ -56,12 +56,12 @@ class Router
 
         add_filter('template_include', function ($template) {
 
-            if ($this->routeIsDefined($template)) {
-                return $this->routeResponse($this->routes[$template]);
-            }
-
             if ($this->routeIsDefined($key = get_post_meta(get_the_ID(), '_wp_page_template', true))) {
                 return $this->routeResponse($this->templates[$key]);
+            }
+
+            if ($this->routeIsDefined($template)) {
+                return $this->routeResponse($this->routes[$template]);
             }
 
             return $template;
