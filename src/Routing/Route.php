@@ -44,7 +44,21 @@ class Route
 
         add_filter("{$hook}_template", function ($template) use ($name, $endpoint, $type) {
             if ($type) {
-                if ($type == get_query_var('post_type')) {
+                $queriedObject = get_queried_object();
+
+                if ($queriedObject instanceof \WP_Post_Type) {
+                    $queryString = $queriedObject->name;
+                }
+
+                if ($queriedObject instanceof \WP_Term) {
+                    $queryString = $queriedObject->taxonomy;
+                }
+
+                if ($queriedObject instanceof \WP_Post) {
+                    $queryString = $queriedObject->slug;
+                }
+
+                if ($type == $queryString) {
                     return $name;
                 }
 
