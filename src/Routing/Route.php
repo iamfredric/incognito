@@ -55,7 +55,11 @@ class Route
                 }
 
                 if ($queriedObject instanceof \WP_Post) {
-                    $queryString = $queriedObject->slug;
+                    if ($queriedObject->post_type == 'page') {
+                        $queryString = $queriedObject->slug;
+                    } else {
+                        $queryString = $queriedObject->post_type;
+                    }
                 }
 
                 if ($type == $queryString) {
