@@ -6,6 +6,7 @@ function config($key, $default = null) {
     $value = require theme_path('config/' . $keys[0] .'.php');
 
     unset($keys[0]);
+
     foreach ($keys as $key) {
         if (! isset($value[$key])) {
             $value = $default;
@@ -83,4 +84,23 @@ function uploads_url($path = '')
     $directory = wp_upload_dir();
 
     return rtrim($directory['baseurl'], '/') . '/' . trim($path, '/');
+}
+
+if (! function_exists('mix')) {
+    function mix($originalFilename)
+    {
+        $filename = '/'.ltrim($originalFilename, '/');
+
+        $mainfestFile = theme_path('mix-manifest.json');
+
+        if (! file_exists($mainfestFile)) {
+            return theme_url($originalFilename);
+        }
+
+        $manifest = json_decode(file_get_contents($mainfestFile));
+
+        return isset($manifest->{$filename})
+            ? theme_url($manifest->{$filename})
+            : theme_url($originalFilename);
+    }
 }
