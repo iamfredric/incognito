@@ -32,7 +32,7 @@
         }
     ],
     "require": {
-        "iamfredric/modest": "0.1.1",
+        "iamfredric/modest": "0.1.2",
         "iamfredric/instantiator": "0.1.0",
         "duncan3dc/blade": "^3.4"
     },
