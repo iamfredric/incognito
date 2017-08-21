@@ -55,6 +55,12 @@ class Router
         });
 
         add_filter('template_include', function ($template) {
+            $originalTemplate = $template;
+
+            if (str_contains($template, '.php')) {
+                $template = explode('/', str_replace('.php', '', $template));
+                $template = end($template);
+            }
 
             if ($this->routeIsDefined($key = get_post_meta(get_the_ID(), '_wp_page_template', true))) {
                 return $this->routeResponse($this->templates[$key]);
@@ -64,7 +70,7 @@ class Router
                 return $this->routeResponse($this->routes[$template]);
             }
 
-            return $template;
+            return $originalTemplate;
         });
     }
 
