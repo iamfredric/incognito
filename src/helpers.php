@@ -1,6 +1,16 @@
 <?php
 
-function config($key, $default = null) {
+/**
+ * Fetches the configuration key that responds to
+ * the given configuration key
+ *
+ * @param  string $key
+ * @param  string $default Default value
+ *
+ * @return mixed
+ */
+function config($key, $default = null)
+{
     $keys = explode('.', $key);
 
     $value = require theme_path('config/' . $keys[0] .'.php');
@@ -12,12 +22,21 @@ function config($key, $default = null) {
             $value = $default;
             break;
         }
+
         $value = $value[$key];
     }
 
     return $value;
 }
 
+/**
+ * Gets the view instances
+ *
+ * @param  string $view
+ * @param  array  $data
+ *
+ * @return \duncan3dc\Laravel\BladeInstance
+ */
 function view($view = null, $data = [])
 {
     $instance = \Incognito\App::view()->getBladeInstance();
@@ -91,16 +110,64 @@ if (! function_exists('mix')) {
     {
         $filename = '/'.ltrim($originalFilename, '/');
 
-        $mainfestFile = theme_path('mix-manifest.json');
+        $manifestFile = assets('mix-manifest.json');
 
-        if (! file_exists($mainfestFile)) {
-            return theme_url($originalFilename);
+        if (! file_exists($manifestFile)) {
+            return assets($originalFilename);
         }
 
-        $manifest = json_decode(file_get_contents($mainfestFile));
+        $manifest = json_decode(file_get_contents($manifestFile));
 
         return isset($manifest->{$filename})
-            ? theme_url($manifest->{$filename})
-            : theme_url($originalFilename);
+            ? assets($manifest->{$filename})
+            : assets($originalFilename);
+    }
+}
+
+if (! function_exists('assets')) {
+    function assets($file)
+    {
+        $file = ltrim($file, '/');
+
+        return config('app.assets-path') . "/{$file}";
+    }
+}
+
+if (! function_exists('array_to_object')) {
+    function array_to_object($array)
+    {
+        $object = new stdClass();
+
+        foreach ($array as $key => $value) {
+            $object->{str_dash_to_camel($key)} = $value;
+        }
+
+        return $object;
+    }
+}
+
+if (! function_exists('str_dash_to_camel')) {
+    function str_dash_to_camel($string)
+    {
+        $values = array_map(function ($value) {
+            return ucfirst(strtolower($value));
+        }, explode('-', $string));
+
+        return lcfirst(implode('', $values));
+    }
+}
+
+if (! function_exists('view_composer')) {
+    function view_composer($key, $endpoint)
+    {
+        return view()->composer($key, function ($view) use ($endpoint) {
+            $parts     = explode('@', $endpoint);
+            $classname = "App\\Http\\Composers\\{$parts[0]}";
+            $method    = isset($parts[1]) ? $parts[1] : 'compose';
+
+            $class = new \Iamfredric\Instantiator\Instantiator($classname);
+
+            return ($class->call())->{$method}($view);
+        });
     }
 }
