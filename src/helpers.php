@@ -110,7 +110,7 @@ if (! function_exists('mix')) {
     {
         $filename = '/'.ltrim($originalFilename, '/');
 
-        $manifestFile = assets('mix-manifest.json');
+        $manifestFile = theme_path(config('app.assets-path') . '/mix-manifest.json');
 
         if (! file_exists($manifestFile)) {
             return assets($originalFilename);
