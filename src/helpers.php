@@ -129,7 +129,7 @@ if (! function_exists('assets')) {
     {
         $file = ltrim($file, '/');
 
-        return config('app.assets-path') . "/{$file}";
+        return theme_url(str_replace('//', '/', config('app.assets-path') . "/{$file}"));
     }
 }
 
