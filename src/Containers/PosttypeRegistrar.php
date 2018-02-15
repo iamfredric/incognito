@@ -297,7 +297,7 @@ class PosttypeRegistrar
             'hierarchical'          => $this->hierarchical,
             'supports'              => $this->supports,
             'public'                => $this->public,
-            'show_ui'               => ! $this->public,
+            'show_ui'               => true,
             'show_in_nav_menus'     => $this->visible,
             'publicly_queryable'    => $this->visible,
             'exclude_from_search'   => ! $this->visible,
