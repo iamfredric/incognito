@@ -62,7 +62,7 @@ class Router
                 $template = end($template);
             }
 
-            if ($this->routeIsDefined($key = get_post_meta(get_the_ID(), '_wp_page_template', true))) {
+            if ($template != 'search' && $this->routeIsDefined($key = get_post_meta(get_the_ID(), '_wp_page_template', true))) {
                 return $this->routeResponse($this->templates[$key]);
             }
 
