@@ -62,6 +62,11 @@ class PosttypeRegistrar
     private $exportable = true;
 
     /**
+     * @var bool
+     */
+    private $showInRest = true;
+
+    /**
      * @var string
      */
     private $icon = 'dashicons-admin-post';
@@ -151,6 +156,18 @@ class PosttypeRegistrar
     {
         $this->hierarchical = true;
         $this->supports[] = 'page-attributes';
+
+        return $this;
+    }
+
+    /**
+     * Hides type from rest api
+     *
+     * @return $this
+     */
+    public function hideFromApi()
+    {
+        $this->showInRest = false;
 
         return $this;
     }
@@ -307,12 +324,12 @@ class PosttypeRegistrar
             'rewrite'               => ['slug' => $this->getSlug()],
             'capability_type'       => $this->type,
             'menu_icon'             => $this->icon,
-            'show_in_menu'          => $this->menuPosition
+            'show_in_menu'          => $this->menuPosition,
+            'show_in_rest'          => $this->showInRest
         ]);
 
         foreach ($this->taxonomies as $taxonomy) {
             $taxonomy->register($this->id);
-
         }
     }
 }
