@@ -82,6 +82,11 @@ class PosttypeRegistrar
     private $menuPosition = true;
 
     /**
+     * @var
+     */
+    protected $metabox = null;
+
+    /**
      * PosttypeRegistrar constructor.
      *
      * @param $id
@@ -306,6 +311,34 @@ class PosttypeRegistrar
      */
     public function register()
     {
+        $args = [
+            'labels' => [
+                'name' => _x($this->plural, $this->id),
+                'singular_name' => _x($this->singular, $this->id),
+            ],
+            'hierarchical'          => $this->hierarchical,
+            'supports'              => $this->supports,
+            'public'                => $this->public,
+            'show_ui'               => true,
+            'show_in_nav_menus'     => $this->visible,
+            'publicly_queryable'    => $this->visible,
+            'exclude_from_search'   => !$this->visible,
+            'has_archive'           => $this->archive,
+            'query_var'             => $this->visible,
+            'can_export'            => $this->exportable,
+            'rewrite'               => ['slug' => $this->getSlug()],
+            'capability_type'       => $this->type,
+            'menu_icon'             => $this->icon,
+            'show_in_menu'          => $this->menuPosition,
+            'show_in_rest'          => $this->showInRest
+        ];
+
+        if ($this->metabox) {
+            $args['register_meta_box_cb'] = function () {
+                return (new $this->metabox())->register();
+            };
+        }
+
         register_post_type($this->id, [
             'labels' => [
                 'name' => _x($this->plural, $this->id),
