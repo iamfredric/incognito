@@ -250,6 +250,18 @@ class PosttypeRegistrar
     }
 
     /**
+     * Registers a metabox
+     *
+     * @return $this
+     */
+    public function withMetabox($metabox)
+    {
+        $this->metabox = $metabox;
+
+        return $this;
+    }
+
+    /**
      * Enables exports
      *
      * @return $this
