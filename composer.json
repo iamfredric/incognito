@@ -34,7 +34,7 @@
     "require": {
         "iamfredric/modest": "dev-master",
         "iamfredric/instantiator": "dev-master",
-        "duncan3dc/blade": "^4.0"
+        "duncan3dc/blade": "^4.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.2",

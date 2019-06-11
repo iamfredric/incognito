@@ -3,74 +3,82 @@
 namespace Incognito;
 
 use duncan3dc\Laravel\BladeInstance;
+use duncan3dc\Laravel\Directives;
 use Iamfredric\Instantiator\Instantiator;
 
 class ViewServiceContainer
 {
+    /**
+     * @var \duncan3dc\Laravel\BladeInstance
+     */
     protected $blade;
-
-    protected $directives = [];
 
     /**
      * @var array
      */
     private $composers = [];
 
-    public function __construct($viewsDirectory, $cacheDirecyory)
+    /**
+     * @var array
+     */
+    protected $directives = [];
+
+    /**
+     * ViewServiceContainer constructor.
+     *
+     * @param $viewsDirectory
+     * @param $cacheDirecyory
+     * @param array $composers
+     * @param array $directives
+     */
+    public function __construct($viewsDirectory, $cacheDirecyory, $composers = [], $directives = [])
     {
         $this->blade = new BladeInstance(
             $viewsDirectory, $cacheDirecyory
         );
 
-//        $this->directives = $directives;
-//        $this->composers = $composers;
+        $this->composers = $composers;
+        $this->directives = $directives;
 
-//        $this->addViewComposers();
-//        $this->addDirectives();
+        $this->addViewComposers()
+             ->addDirectives();
     }
 
-    public function viewComposer($key, $callable, $namespace)
-    {
-        $this->blade->directive($key, function ($view) use ($callable) {
-            // $composer = new ViewComposer($callable, $namespace);
-            // return $composer->compose($view);
-//            $parts = explode('@', $composer);
-//            $classname = 'App\\Http\\Composers\\' . $parts[0];
-//
-//            $response = (new Instantiator($classname))->call();
-//
-//            return $response->{$parts[1]}($view);
-        });
-    }
-
+    /**
+     * Registers custom directives
+     *
+     * @return $this
+     */
     public function addDirectives()
     {
-        foreach ($this->directives as $name => $directive) {
-            $this->blade->directive($name, function ($expression) use ($directive) {
-                $parts = explode('@', $directive);
-                $classname = 'App\\Http\\Directives\\' . $parts[0];
-
-                $response = (new Instantiator($classname))->call();
-
-                return $response->{$parts[1]}($view);
+        foreach ($this->directives as $name => $classname) {
+            $this->blade->directive($name, function ($expression) use ($classname) {
+                return (new Instantiator($classname))->call()->render($expression);
             });
         }
+
+        return $this;
     }
 
+    /**
+     * Register custom view composers
+     *
+     * @return $this
+     */
     public function addViewComposers()
     {
-        foreach ($this->composers as $view => $composer) {
-            $this->blade->composer($view, function ($view) use ($composer) {
-                $parts = explode('@', $composer);
-                $classname = 'App\\Http\\Composers\\' . $parts[0];
-
-                $response = (new Instantiator($classname))->call();
-
-                return $response->{$parts[1]}($view);
+        foreach ($this->composers as $view => $classname) {
+            $this->blade->composer($view, function ($view) use ($classname) {
+                return (new Instantiator($classname))->call()->compose($view);
             });
         }
+
+        return $this;
     }
 
+    /**
+     * @return \duncan3dc\Laravel\BladeInstance
+     */
     public function getBladeInstance()
     {
         return $this->blade;
