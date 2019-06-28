@@ -21,15 +21,9 @@
             "Tests\\": "tests/"
         }
     },
-    "repositories": [
-        {
-          "type": "vcs",
-          "url": "/Users/fredric/sites/modest"
-        }
-    ],
     "require": {
-        "iamfredric/modest": "dev-master",
-        "iamfredric/instantiator": "dev-master",
+        "iamfredric/modest": "^1.0",
+        "iamfredric/instantiator": "^1.0",
         "duncan3dc/blade": "^4.5"
     },
     "require-dev": {
