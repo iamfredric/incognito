@@ -90,10 +90,6 @@ if (! function_exists('theme_path')) {
      */
     function theme_path($path = '')
     {
-        if ( ! function_exists('get_stylesheet_directory')) {
-            return $path;
-        }
-
         return rtrim(get_stylesheet_directory(), '/') . '/' . trim($path, '/');
     }
 }
@@ -108,10 +104,6 @@ if (! function_exists('uploads_path')) {
      */
     function uploads_path($path = '')
     {
-        if ( ! function_exists('wp_upload_dir')) {
-            return null;
-        }
-
         $directory = wp_upload_dir();
 
         return rtrim($directory['basedir'], '/') . '/' . trim($path, '/');
