@@ -81,6 +81,10 @@ function theme_url($url = '')
  */
 function theme_path($path = '')
 {
+    if (! function_exists('get_stylesheet_directory')) {
+        return $path;
+    }
+
     return rtrim(get_stylesheet_directory(), '/') . '/' . trim($path, '/');
 }
 
