@@ -97,6 +97,10 @@ function theme_path($path = '')
  */
 function uploads_path($path = '')
 {
+    if (! function_exists('wp_upload_dir')) {
+        return null;
+    }
+
     $directory = wp_upload_dir();
 
     return rtrim($directory['basedir'], '/') . '/' . trim($path, '/');
