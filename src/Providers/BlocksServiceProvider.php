@@ -2,6 +2,8 @@
 
 namespace Incognito\Providers;
 
+use Iamfredric\Instantiator\Instantiator;
+
 class BlocksServiceProvider implements ServiceProvider
 {
     /**
