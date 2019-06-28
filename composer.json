@@ -22,8 +22,8 @@
         }
     },
     "require": {
-        "iamfredric/modest": "^1.0",
-        "iamfredric/instantiator": "^1.0",
+        "iamfredric/modest": "dev-master",
+        "iamfredric/instantiator": "dev-master",
         "duncan3dc/blade": "^4.5"
     },
     "require-dev": {
