@@ -70,7 +70,7 @@ class InstantiatorServiceProvider implements ServiceProvider
 
         // Apply lazy load script to footer
         add_action('wp_footer', function () {
-            echo '<script>window.lazyLoadOptions = {elements_selector: ".lazy,.content img", callback_reveal: function (e) {if (e.dataset.style) {e.style.cssText = e.dataset.style;}}};</script><script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@12.0.0/dist/lazyload.min.js"></script>';
+            echo '<script>window.lazyLoadOptions = {elements_selector: ".lazy,.content img,.content iframe", callback_reveal: function (e) {if (e.dataset.style) {e.style.cssText = e.dataset.style;}}};</script><script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@12.0.0/dist/lazyload.min.js"></script>';
         });
     }
 }
