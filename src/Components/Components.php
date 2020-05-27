@@ -69,7 +69,9 @@ class Components
      */
     protected function resolveClassname($name)
     {
-        $name = ucfirst($name);
+        $name = collect(explode('-', $name))->map(function ($name) {
+            return ucfirst($name);
+        })->implode('');
 
         if (! $this->prefix) {
             return "\\App\\Components\\{$name}Component";

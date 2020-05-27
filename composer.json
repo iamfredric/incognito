@@ -16,18 +16,11 @@
             "Incognito\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
+    "autoload-dev": {},
     "require": {
         "iamfredric/modest": "^1.0",
         "iamfredric/instantiator": "^1.0",
-        "duncan3dc/blade": "^4.5"
+        "duncan3dc/blade": "^4.8"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^6.2",
-        "mockery/mockery": "^0.9.9"
-    }
+    "require-dev": {}
 }

@@ -3,6 +3,7 @@
 namespace Incognito\Utilities;
 
 use Incognito\Utilities\Wordpress\Image;
+use Incognito\Utilities\Wordpress\Link;
 
 trait Transformer
 {
@@ -29,6 +30,10 @@ trait Transformer
             // Auto cast images to Image object
             if (is_array($item) and isset($item['sizes'])) {
                 $item = new Image($item);
+            }
+
+            if (is_array($item) && isset($item['url']) && isset($item['title']) && isset($item['target'])) {
+                $item = new Link($item);
             }
 
             $key = dash_to_camel($key);
